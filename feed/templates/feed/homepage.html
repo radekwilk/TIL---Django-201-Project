@@ -4,7 +4,9 @@
 {% block title %}Change the title of the page{% endblock %}
 
 {% block body %}
-    {% for post in posts %}
+    <div id="post-container">
+        {% for post in posts %}
         {% include "includes/post.html" with post=post show_detail_link=True %}
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}
