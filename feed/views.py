@@ -18,18 +18,19 @@ class HomePage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            following = list(
-                Follower.objects.filter(
-                    followed_by=self.request.user).values_list('following', flat=True)
-            )
-            if not following:
-                # show the default 30
-                posts = Post.objects.all().order_by('-id')[0:30]
-            else:
-                posts = Post.objects.filter(
-                    author__in=following).order_by('-id')[0:60]
+           # following = list(
+           #     Follower.objects.filter(
+           #         followed_by=self.request.user).values_list('following', flat=True)
+           # )
+            # if not following:
+            #    # show the default 30
+            posts = Post.objects.all().order_by('-id')[0:30]
+           # else:
+           #     posts = Post.objects.filter(
+           #         author__in=following).order_by('-id')[0:60]
         else:
             posts = Post.objects.all().order_by('-id')[0:30]
+            #posts = 'Login to be able to see posts'
         context['posts'] = posts
         return context
 
