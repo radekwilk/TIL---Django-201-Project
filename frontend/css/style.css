@@ -10,6 +10,11 @@
 
 .login-form p {
     padding: .5rem 0;
+   
+}
+
+.login-form > p {
+    display: none;
 }
 
 .login-form p > a {
@@ -84,4 +89,8 @@
 
 .message-list-item {
     margin-bottom: .2rem;
+}
+
+p.message {
+    display: block;
 }

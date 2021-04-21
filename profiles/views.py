@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, View
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView, View
 from django.http import JsonResponse
+from django.shortcuts import render
 
 from feed.models import Post
 from followers.models import Follower
@@ -65,3 +68,16 @@ class FollowView(LoginRequiredMixin, View):
             'success': True,
             'wording': 'Unfollow' if data['action'] == 'follow' else 'Follow'
         })
+
+
+# def register(request):
+#    form = UserCreationForm()
+#    return render(
+#        request,
+#        'profile/register.html',
+#        {'form': form}
+#    )
+
+@login_required
+def profile(request):
+    return render(request, 'profiles/profile.html')
