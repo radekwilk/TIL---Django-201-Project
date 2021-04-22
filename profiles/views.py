@@ -5,9 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, View
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from feed.models import Post
 from followers.models import Follower
+from .forms import UserUpdateForm, ProfileUpdateForm
 
 
 class ProfileDetailView(DetailView):
@@ -26,6 +29,8 @@ class ProfileDetailView(DetailView):
         user = self.get_object()
         context = super().get_context_data(**kwargs)
         context["total_posts"] = Post.objects.filter(author=user).count()
+        context['you_follow_total'] = Follower.objects.filter(
+            followed_by=user).count()
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(
                 following=user, followed_by=self.request.user).exists()
@@ -80,4 +85,22 @@ class FollowView(LoginRequiredMixin, View):
 
 @login_required
 def profile(request):
-    return render(request, 'profiles/profile.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'profiles/profile.html', context)

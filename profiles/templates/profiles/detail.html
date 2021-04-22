@@ -3,8 +3,13 @@
 {% block title %}{{ user.username }}{% endblock title %}
 
 {% block body %}
+<div class="text-center mb-4 max-w-md">
+    <h3 class="font-light text-4xl text-green-700 w-full">
+        Profile details for {{ user.username }}
+    </h3>
+</div>
 <!-- component from https://tailwindcomponents.com/component/profile-card -->
-<div class="rounded rounded-t-lg overflow-hidden shadow-lg max-w-xs my-3">
+<div class="rounded rounded-t-lg overflow-hidden shadow-lg max-w-md my-3">
     {% thumbnail user.profile.image_bg "600x240" crop="center" as im %}
     <img src="{{ im.url }}" class="w-full" />
     {% endthumbnail %}
@@ -58,7 +63,7 @@
             <span>Posts</span>
         </div>
         <div class="text-center">
-            <h2>xx {# TODO: Add total followers #}</h2>
+            <h2 class="text-base font-bold">{{ you_follow_total }}</h2>
             <span>Friends</span>
         </div>
     </div>
