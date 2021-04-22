@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 
 
-{% block title %}Change the title of the page{% endblock %}
+{% block title %}My friends posts{% endblock %}
 
 {% block body %}
 <div id="post-container">
-    {% for post in friend_posts %}
-    {% include "includes/post.html" with post=post show_detail_link=True %}
-    {% endfor %}
+    {% if  friend_posts%}
+        {% for post in friend_posts %}
+            {% include "includes/post.html" with post=post show_detail_link=True %}
+        {% endfor %}
+    {% else %}
+        <div class="text-center mb-4">
+            <h3 class="font-light text-4xl text-green-700 w-full">
+                {{ user.username }}, you do not follow any friends!
+            </h3>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

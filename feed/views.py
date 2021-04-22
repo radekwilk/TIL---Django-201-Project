@@ -51,14 +51,34 @@ class FriendsPostView(TemplateView):
                     followed_by=self.request.user).values_list('following', flat=True)
             )
             if not following:
-                friend_posts = 'You do not follow any friend!'
+                # friend_posts = 'You do not follow any friend!'
+                friend_posts = Post.objects.all().order_by('-id')[0:0]
             else:
                 friend_posts = Post.objects.filter(
                     author__in=following).order_by('-id')[0:60]
         else:
             friend_posts = Post.objects.all().order_by('-id')[0:30]
-            friend_posts = 'Login to be able to see posts'
+            #friend_posts = 'Login to be able to see posts'
         context['friend_posts'] = friend_posts
+        return context
+
+
+class MyPostView(TemplateView):
+    http_method_names = ["get"]
+    template_name = "feed/my_posts.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            my_posts = Post.objects.filter(
+                author=self.request.user).order_by('-id')[0:60]
+        else:
+            my_posts = Post.objects.all().order_by('-id')[0:0]
+        context['my_posts'] = my_posts
         return context
 
 
