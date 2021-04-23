@@ -5,6 +5,8 @@ from .models import Profile
 
 
 class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
     class Meta:
         model = User
         fields = ['username',
@@ -15,3 +17,7 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image', 'image_bg']
+        labels = {
+            'image': 'Avatar',
+            'image_bg': 'Background img'
+        }

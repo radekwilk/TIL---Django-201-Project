@@ -2,6 +2,7 @@ from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.contrib import messages
 
 from followers.models import Follower
 from .models import Post
@@ -78,6 +79,8 @@ class MyPostView(TemplateView):
                 author=self.request.user).order_by('-id')[0:60]
         else:
             my_posts = Post.objects.all().order_by('-id')[0:0]
+            context['messages'] = messages.success(
+                'You do not have any posts!')
         context['my_posts'] = my_posts
         return context
 

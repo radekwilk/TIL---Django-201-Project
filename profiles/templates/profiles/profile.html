@@ -25,16 +25,20 @@
         {% csrf_token %}
 
         {{ u_form|crispy }}
+
+        <a href="{% url 'account_change_password' %}"
+            class="change_password bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline inline-block mb-4"">Change password</a>
+
         {{ p_form|crispy }}
 
-        <div class="flex items-center justify-between">
+        <div class=" flex items-center justify-between">
             <button
                 class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
                 Update
             </button>
-        </div>
+</div>
 
-    </form>
+</form>
 </div>
 {% endblock body %}

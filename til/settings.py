@@ -164,6 +164,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_REDIRECT = '/'
 ACCOUNT_PRESERVE_USERNAME_CASING = False
@@ -176,7 +177,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    # EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # For life application we will need something like this
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
