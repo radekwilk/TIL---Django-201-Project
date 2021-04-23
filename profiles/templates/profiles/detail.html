@@ -3,13 +3,13 @@
 {% block title %}{{ user.username }}{% endblock title %}
 
 {% block body %}
-<div class="text-center mb-4 max-w-md">
+<div class="text-center mb-4 ml-20 max-w-lg">
     <h3 class="font-light text-4xl text-green-700 w-full">
-        Profile details for {{ user.username }}
+        Profile details
     </h3>
 </div>
 <!-- component from https://tailwindcomponents.com/component/profile-card -->
-<div class="rounded rounded-t-lg overflow-hidden shadow-lg max-w-md my-3">
+<div class="rounded rounded-t-lg overflow-hidden shadow-lg max-w-lg my-3 ml-20">
     {% thumbnail user.profile.image_bg "600x240" crop="center" as im %}
     <img src="{{ im.url }}" class="w-full" />
     {% endthumbnail %}
@@ -19,18 +19,24 @@
         {% endthumbnail %}
     </div>
     <div class="text-center px-3 pb-6 pt-2">
-        <h3 class="text-black text-lg font-bold">
+        <h3
+            class="text-black text-lg font-bold w-11/12 mx-auto border-b border-green-300 rounded-md bg-gray-50 py-3 mb-4">
             <span class="font-normal">Username:</span>
             {{ user.username }}
         </h3>
-        <p class="text-black text-lg font-bold">
+        <p
+            class="text-black text-lg font-bold w-11/12 mx-auto border-b border-green-300 rounded-md bg-gray-50 py-3 mb-4 capitalize">
             <span class="font-normal">First name:</span>
             {{ user.first_name }}
         </p>
-        <p class="text-black text-lg font-bold"><span class="font-normal">Last name:</span>
+        <p
+            class="text-black text-lg font-bold w-11/12 mx-auto border-b border-green-300 rounded-md bg-gray-50 py-3 mb-4 capitalize">
+            <span class="font-normal">Last name:</span>
             {{ user.last_name }}
         </p>
-        <p class="text-black text-lg font-bold"><span class="font-normal">Email:</span>
+        <p
+            class="text-black text-lg font-bold w-11/12 mx-auto border-b border-green-300 rounded-md bg-gray-50 py-3 mb-4">
+            <span class="font-normal">Email:</span>
             {{ user.email }}
         </p>
         {% if request.user.is_authenticated %}
@@ -58,7 +64,7 @@
         {% endif %}
     </div>
     <div class="flex justify-center pb-3 text-grey-dark">
-        <div class="text-center mr-3 border-r pr-3">
+        <div class="text-center mr-3 border-r pr-3 border-green-300">
             <h2 class="text-base font-bold">{{ total_posts }}</h2>
             <span>Posts</span>
         </div>
